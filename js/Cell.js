@@ -43,7 +43,7 @@
 	tears.Cell.prototype.prepare = function (neighbours) {
 		this._neighbouringVigour = 0;
 		for (var i = 0; i < neighbours.length; neighbours++) {
-			this._neighbouringVigour += neighbours[i].vigour;
+			this._neighbouringVigour += Math.max(neighbours[i].vigour, 1);
 		}
 	};
 	

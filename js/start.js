@@ -39,7 +39,7 @@
 			cells.push([]);
 			for (var column = 0; column < foreground.width; column++) {
 				var cell = new tears.Cell();
-				cell.addObserver(new tears.CanvasCell(context, { x: column, y: row }, { height: 1, width: 1 }));
+				cell.addObserver(new tears.CanvasCell(context, { x: column, y: row }, { height: 1, width: 1 }, false));
 				cells[row].push(cell);
 			}
 		}
