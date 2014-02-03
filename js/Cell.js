@@ -4,15 +4,15 @@
 	var dieAt = 3;
 	
 	var liveAct = function (vigour) {
-		if (vigour <= dieAt) {
+		//if (vigour <= dieAt) {
 			this._die();
-		}
+		//}
 	};
 	
 	var deadAct = function (vigour) {
-		if (vigour >= liveAt) {
+		//if (vigour >= liveAt) {
 			this._live();
-		}
+		//}
 	};
 	
 	tears.Cell = function (vigour) {
@@ -21,31 +21,34 @@
 		this._live();
 	};
 	
-	var notify = function (observers, methodName) {
+	var notify = function (observers, methodName, arg) {
 		for (var i = 0; i < observers.length; i++) {
-			observers[i][methodName]();
+			observers[i][methodName](arg);
 		}
 	};
 	
 	tears.Cell.prototype._live = function () {
-		this._act = liveAct;
-		notify(this._observers, "cellLived");
+		this.act = liveAct;
+		notify(this._observers, "cellLived", this.vigour);
 	};
 	
 	tears.Cell.prototype._die = function () {
-		this._act = deadAct;
-		notify(this._observers, "cellDied");
+		this.act = deadAct;
+		notify(this._observers, "cellDied", this.vigour);
 	};
 	
-	tears.Cell.prototype.step = function (neighbours) {
-		var vigourIn = 0;
+	tears.Cell.prototype.prepare = function (neighbours) {
+		this._neighbouringVigour = 0;
 		for (var i = 0; i < neighbours.length; neighbours++) {
-			vigourIn += neighbours[i].vigour;
+			this._neighbouringVigour += neighbours[i].vigour;
 		}
-		this._act(vigourIn);
 	};
 	
-	tears.prototype.addObserver = function (observer) {
+	tears.Cell.prototype.change = function () {
+		this.act(this._neighbouringVigour);
+	};
+	
+	tears.Cell.prototype.addObserver = function (observer) {
 		this._observers.push(observer);
 	};
 	
