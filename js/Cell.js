@@ -1,24 +1,25 @@
 (function () {
 	
 	var liveAt = 5;
+	var chanceLiveThreshold = 0.99;
 	var dieAt = 3;
 	
 	var liveAct = function (vigour) {
-		//if (vigour <= dieAt) {
+		if (vigour <= dieAt) {
 			this._die();
-		//}
+		}
 	};
 	
 	var deadAct = function (vigour) {
-		//if (vigour >= liveAt) {
-			this._live();
-		//}
+		if (vigour >= liveAt || Math.random() > chanceLiveThreshold) {
+			this._live(vigour);
+		}
 	};
 	
 	tears.Cell = function (vigour) {
 		this.vigour = vigour;
 		this._observers = [];
-		this._live();
+		this._die();
 	};
 	
 	var notify = function (observers, methodName, arg) {
@@ -27,13 +28,15 @@
 		}
 	};
 	
-	tears.Cell.prototype._live = function () {
+	tears.Cell.prototype._live = function (vigour) {
 		this.act = liveAct;
+		this.vigour = vigour;
 		notify(this._observers, "cellLived", this.vigour);
 	};
 	
 	tears.Cell.prototype._die = function () {
 		this.act = deadAct;
+		this.vigour = 0;
 		notify(this._observers, "cellDied", this.vigour);
 	};
 	

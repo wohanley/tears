@@ -22,13 +22,15 @@
 	window.onload = function () {
 		
 		var background = document.getElementById('background');
+		background.height = 250;
+		background.width = 250;
 		var bgContext = background.getContext("2d");
 		bgContext.fillStyle = "#000";
 		bgContext.fillRect(0, 0, background.width, background.height);
 		
 		var foreground = document.getElementById('foreground');
-		foreground.height = 100;
-		foreground.width = 100;
+		foreground.height = 250;
+		foreground.width = 250;
 		
 		var context = foreground.getContext("2d");
 		
@@ -55,7 +57,7 @@
 					cells[row][column].change();
 				}
 			}
-		}, 50);
+		}, 100);
 	};
 	
 })();
