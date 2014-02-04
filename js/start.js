@@ -20,17 +20,23 @@
 	};
 
 	window.onload = function () {
-		
+
+        var size = 200;
+
+        var draw = document.getElementById('draw');
+        draw.style.width = size;
+        draw.style.height = size;
+
 		var background = document.getElementById('background');
-		background.height = 200;
-		background.width = 200;
+		background.height = size;
+		background.width = size;
 		var bgContext = background.getContext("2d");
 		bgContext.fillStyle = "#000";
 		bgContext.fillRect(0, 0, background.width, background.height);
 		
 		var foreground = document.getElementById('foreground');
-		foreground.height = 200;
-		foreground.width = 200;
+		foreground.height = size;
+		foreground.width = size;
 		
 		var fgContext = foreground.getContext("2d");
 		
