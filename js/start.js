@@ -35,14 +35,20 @@
 		var fgContext = foreground.getContext("2d");
 		
 		var cells = [];
+		var backgroundGenerator = new tears.CellActionTrace(background, 20);
 		for (var row = 0; row < foreground.height; row++) {
 			cells.push([]);
 			for (var column = 0; column < foreground.width; column++) {
 				var cell = new tears.Cell();
 				cell.addObserver(new tears.CanvasCell(fgContext, { x: column, y: row }, { height: 1, width: 1 }, false));
+				cell.addObserver(backgroundGenerator);
 				cells[row].push(cell);
 			}
 		}
+		
+		setInterval(function () {
+			backgroundGenerator.draw();
+		}, 30);
 		
 		setInterval(function () {
 			var row, column;
