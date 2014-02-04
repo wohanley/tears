@@ -1,13 +1,15 @@
 (function () {
 	
-	var startWith = 10;
-	var liveAt = 5;
-	var chanceLiveThreshold = 0.9999;
-	var dieAt = 3;
+	var chanceLiveThreshold = 0.999;
+	var chanceStartWith = 100;
+	var liveAt = 3;
+	var dieAt = 1;
 	
 	var liveAct = function (vigour) {
-		if (--vigour <= dieAt) {
+		if (vigour <= dieAt) {
 			this._die();
+		} else {
+			this.vigour = Math.max(1, this.vigour - 1);
 		}
 	};
 	
@@ -15,7 +17,7 @@
 		if (vigour >= liveAt) {
 			this._live(vigour);
 		} else if (Math.random() > chanceLiveThreshold) {
-			this._live(startWith);
+			this._live(chanceStartWith);
 		}
 	};
 	
@@ -48,6 +50,7 @@
 		for (var i = 0; i < neighbours.length; i++) {
 			this._neighbouringVigour += neighbours[i].vigour;
 		}
+		this._neighbouringVigour /= 9;
 	};
 	
 	tears.Cell.prototype.change = function () {
