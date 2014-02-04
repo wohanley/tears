@@ -22,24 +22,24 @@
 	window.onload = function () {
 		
 		var background = document.getElementById('background');
-		background.height = 150;
-		background.width = 150;
+		background.height = 200;
+		background.width = 200;
 		var bgContext = background.getContext("2d");
 		bgContext.fillStyle = "#000";
 		bgContext.fillRect(0, 0, background.width, background.height);
 		
 		var foreground = document.getElementById('foreground');
-		foreground.height = 150;
-		foreground.width = 150;
+		foreground.height = 200;
+		foreground.width = 200;
 		
-		var context = foreground.getContext("2d");
+		var fgContext = foreground.getContext("2d");
 		
 		var cells = [];
 		for (var row = 0; row < foreground.height; row++) {
 			cells.push([]);
 			for (var column = 0; column < foreground.width; column++) {
 				var cell = new tears.Cell();
-				cell.addObserver(new tears.CanvasCell(context, { x: column, y: row }, { height: 1, width: 1 }, false));
+				cell.addObserver(new tears.CanvasCell(fgContext, { x: column, y: row }, { height: 1, width: 1 }, false));
 				cells[row].push(cell);
 			}
 		}
@@ -57,7 +57,7 @@
 					cells[row][column].change();
 				}
 			}
-		}, 200);
+		}, 100);
 	};
 	
 })();

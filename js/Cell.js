@@ -1,6 +1,6 @@
 (function () {
 
-	var chanceLiveThreshold = 0.9999;
+	var chanceLiveThreshold = 0.99995;
 	var chanceStartWith = 100;
 	var liveAt = 60;
 	var dieAt = 20;
