@@ -24,8 +24,8 @@
         var size = 200;
 
         var draw = document.getElementById('draw');
-        draw.style.width = size;
-        draw.style.height = size;
+        draw.style.width = size + "px";
+        draw.style.height = size + "px";
 
 		var background = document.getElementById('background');
 		background.height = size;
