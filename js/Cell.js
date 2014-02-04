@@ -15,7 +15,7 @@
 
 	var deadAct = function (vigour) {
 		if (vigour >= liveAt) {
-			this._live(vigour / Math.PI);
+			this._live(vigour / 3.4);
 		} else if (Math.random() > chanceLiveThreshold) {
 			this._live(chanceStartWith);
 		}
