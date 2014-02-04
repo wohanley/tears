@@ -1,6 +1,6 @@
 (function () {
 
-	var chanceLiveThreshold = 0.99995;
+	var chanceLiveThreshold = 0.999995;
 	var chanceStartWith = 100;
 	var liveAt = 60;
 	var dieAt = 20;
@@ -15,7 +15,7 @@
 
 	var deadAct = function (vigour) {
 		if (vigour >= liveAt) {
-			this._live(vigour / 3);
+			this._live(vigour / Math.PI);
 		} else if (Math.random() > chanceLiveThreshold) {
 			this._live(chanceStartWith);
 		}
