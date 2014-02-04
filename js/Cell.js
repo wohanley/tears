@@ -1,18 +1,21 @@
 (function () {
 	
+	var startWith = 10;
 	var liveAt = 5;
-	var chanceLiveThreshold = 0.99;
+	var chanceLiveThreshold = 0.9999;
 	var dieAt = 3;
 	
 	var liveAct = function (vigour) {
-		if (vigour <= dieAt) {
+		if (--vigour <= dieAt) {
 			this._die();
 		}
 	};
 	
 	var deadAct = function (vigour) {
-		if (vigour >= liveAt || Math.random() > chanceLiveThreshold) {
+		if (vigour >= liveAt) {
 			this._live(vigour);
+		} else if (Math.random() > chanceLiveThreshold) {
+			this._live(startWith);
 		}
 	};
 	
@@ -42,8 +45,8 @@
 	
 	tears.Cell.prototype.prepare = function (neighbours) {
 		this._neighbouringVigour = 0;
-		for (var i = 0; i < neighbours.length; neighbours++) {
-			this._neighbouringVigour += Math.max(neighbours[i].vigour, 1);
+		for (var i = 0; i < neighbours.length; i++) {
+			this._neighbouringVigour += neighbours[i].vigour;
 		}
 	};
 	

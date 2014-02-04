@@ -1,17 +1,17 @@
 (function () {
 	
-	var findNeighbours = function (grid, x, y) {
-		var startRow = Math.max(y - 1, 0);
-		var endRow = Math.min(y + 1, grid.length);
-		var startColumn = Math.max(x - 1, 0);
-		var endColumn = Math.min(x + 1, grid[0].length);
+	var findNeighbours = function (grid, row, column) {
+		var startRow = Math.max(row - 1, 0);
+		var endRow = Math.min(row + 1, grid.length - 1);
+		var startColumn = Math.max(column - 1, 0);
+		var endColumn = Math.min(column + 1, grid[0].length - 1);
 		
 		var neighbours = [];
 		
-		for (var row = startRow; row < endRow; row++) {
-			for (var column = startColumn; column < endColumn; column++) {
-				if (row !== y && column !== x) {
-					neighbours.push(grid[row][column]);
+		for (var currentRow = startRow; currentRow <= endRow; currentRow++) {
+			for (var currentColumn = startColumn; currentColumn <= endColumn; currentColumn++) {
+				if (!(currentRow === row && currentColumn === column)) {
+					neighbours.push(grid[currentRow][currentColumn]);
 				}
 			}
 		}
@@ -22,15 +22,15 @@
 	window.onload = function () {
 		
 		var background = document.getElementById('background');
-		background.height = 250;
-		background.width = 250;
+		background.height = 150;
+		background.width = 150;
 		var bgContext = background.getContext("2d");
 		bgContext.fillStyle = "#000";
 		bgContext.fillRect(0, 0, background.width, background.height);
 		
 		var foreground = document.getElementById('foreground');
-		foreground.height = 250;
-		foreground.width = 250;
+		foreground.height = 150;
+		foreground.width = 150;
 		
 		var context = foreground.getContext("2d");
 		
@@ -48,7 +48,7 @@
 			var row, column;
 			for (row = 0; row < foreground.height; row++) {
 				for (column = 0; column < foreground.width; column++) {
-					cells[row][column].prepare(findNeighbours(cells, column, row));
+					cells[row][column].prepare(findNeighbours(cells, row, column));
 				}
 			}
 			
@@ -57,7 +57,7 @@
 					cells[row][column].change();
 				}
 			}
-		}, 100);
+		}, 200);
 	};
 	
 })();
